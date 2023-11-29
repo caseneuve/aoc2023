@@ -1,0 +1,18 @@
+#+title: Advent of Code 2023 in Clojure via babashka
+
+* Overview
+
+#+begin_example sh
+$ bb tasks
+The following tasks are available:
+
+template   create template for solution [day and year default to current]
+fetch      get input for given day [requires session token stored in `.token` file ; args default to today]
+boot       fetch input data and create template for given date
+solve      run solution for given day [day defaults to today]
+#+end_example
+
+* Setup
+
+To fetch input via =bb fetch= (or =bb boot=), get the AOC session cookie and put it into ~.token~.  Basic solution skeleton will be created with =bb boot=, to change it, modify ~.template.txt~.
+ 

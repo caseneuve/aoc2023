@@ -1,0 +1,19 @@
+(ns day%02d.solution
+  (:require [tools :refer [file->lines]]))
+
+(defn -main [day]
+  (let [input (file->lines day)]
+    {:part1 nil :part2 nil}))
+
+
+(comment
+  (let [test-input "
+
+"
+        input (constantly test-input)
+        ]
+    {:part1 nil
+     :part2 nil
+     }
+    )
+  )
