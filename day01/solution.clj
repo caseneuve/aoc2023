@@ -14,7 +14,7 @@
    "eight" "8"
    "nine"  "9"})
 
-(defn first-last [coll s]
+(defn first-last->num [coll s]
   (->> coll
        (keep #(when-let [io (index-of s %)]
                 {io (get words-and-digits % %), (last-index-of s %) (get words-and-digits % %)}))
@@ -22,11 +22,9 @@
        ((comp read-string join (juxt first last) vals))))
 
 (defn -main [day]
-  (let [lines (file->lines day)
-        p1 (partial first-last (vals words-and-digits))
-        p2 (partial first-last (flatten (vec words-and-digits)))]
-    {:part1 (apply + (map p1 lines))
-     :part2 (apply + (map p2 lines))}))
+  (let [solve (fn [c] (->> day file->lines (map #(first-last->num c %)) (apply +)))]
+    {:part1 (solve (vals words-and-digits))
+     :part2 (solve (flatten (vec words-and-digits)))}))
 
 
 (comment
@@ -40,9 +38,10 @@ abcone2threexyz
 xtwone3four
 4nineeightseven2
 zoneight234
-7pqrstsixteen"]
-    (assert (= 142 (->> input1 split-lines (map #(first-last (vals words-and-digits) %)) (apply +))))
-    (assert (= 281 (->> input2 split-lines (map #(first-last (flatten (vec words-and-digits)) %)) (apply +))))
+7pqrstsixteen"
+        solve (fn [i c] (->> i split-lines (map #(first-last->num c %)) (apply +)))]
+    (assert (= 142 (solve input1 (vals words-and-digits))))
+    (assert (= 281 (solve input2 (flatten (vec words-and-digits)))))
 
     ;; alternative solution using overlapping regex
     (->> input2
