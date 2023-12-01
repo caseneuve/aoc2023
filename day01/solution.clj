@@ -15,16 +15,16 @@
    "nine"  "9"})
 
 (defn first-last->num [tokens s]
-  (->> tokens
-       (keep #(when-let [io (index-of s %)]
-                {io (get words-and-digits % %), (last-index-of s %) (get words-and-digits % %)}))
-       (into (sorted-map))
-       ((comp read-string join (juxt first last) vals))))
+  (let [words->digits (fn [x] (map #(get words-and-digits % %) x))]
+    (->> tokens
+         (keep #(when-let [io (index-of s %)] {io %, (last-index-of s %) %}))
+         (into (sorted-map))
+         ((comp read-string join words->digits (juxt first last) vals)))))
 
 (defn -main [day]
   (let [solve (fn [c] (->> day file->lines (map #(first-last->num c %)) (apply +)))]
     {:part1 (solve (vals words-and-digits))
-     :part2 (solve (flatten (vec words-and-digits)))}))
+     :part2 (solve (into [] cat words-and-digits))}))
 
 
 (comment
