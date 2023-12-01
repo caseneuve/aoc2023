@@ -6,7 +6,7 @@
   :init
   (do
     (defn exit! [& msgs] (apply println msgs) (System/exit 1))
-    (defn date->fmt [fmt] (.format (java.text.SimpleDateFormat. fmt) (java.util.Date)))
+    (defn date->fmt [fmt] (.format (java.text.SimpleDateFormat. fmt) (new java.util.Date)))
     (def token
       (try (slurp ".token")
            (catch java.io.FileNotFoundException e (exit! (str e)))))
