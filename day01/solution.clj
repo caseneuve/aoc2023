@@ -14,8 +14,8 @@
    "eight" "8"
    "nine"  "9"})
 
-(defn first-last->num [coll s]
-  (->> coll
+(defn first-last->num [tokens s]
+  (->> tokens
        (keep #(when-let [io (index-of s %)]
                 {io (get words-and-digits % %), (last-index-of s %) (get words-and-digits % %)}))
        (into (sorted-map))
