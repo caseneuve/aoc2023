@@ -28,17 +28,8 @@
 
 
 (comment
-  (let [input1 "1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet"
-        input2 "two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen"
+  (let [input1 "1abc2\npqr3stu8vwx\na1b2c3d4e5f\ntreb7uchet"
+        input2 "two1nine\neightwothree\nabcone2threexyz\nxtwone3four\n4nineeightseven2\nzoneight234\n7pqrstsixteen"
         solve (fn [i c] (->> i split-lines (map #(first-last->num c %)) (apply +)))]
     (assert (= 142 (solve input1 (vals words-and-digits))))
     (assert (= 281 (solve input2 (flatten (vec words-and-digits)))))
