@@ -10,9 +10,9 @@
 (def p1
   (let [rules (vals (sorted-map "red" 12 "green" 13 "blue" 14))
         possilble? #(every? true? (map <= % rules))]
-    #(keep-indexed (fn [id game] (when (possilble? game) (inc id))) %)))
+    (partial keep-indexed (fn [id game] (when (possilble? game) (inc id))))))
 
-(def p2 (fn [i] (map #(apply * %) i)))
+(def p2 (partial map #(apply * %)))
 
 (defn -main [day]
   (let [solve-with #(->> day file->lines (map games) % (apply +))]
