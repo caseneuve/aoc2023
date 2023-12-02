@@ -15,7 +15,7 @@
    "nine"  "9"})
 
 (defn first-last->num [tokens s]
-  (let [words->digits (fn [x] (map #(get words-and-digits % %) x))]
+  (let [words->digits (fn [xs] (map #(get words-and-digits % %) xs))]
     (->> tokens
          (keep #(when-let [io (index-of s %)] {io %, (last-index-of s %) %}))
          (into (sorted-map))

@@ -28,5 +28,4 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"
         solve-with #(->> test-input split-lines (map games) % (apply +))]
     (assert (= 8 (solve-with p1)))
     (assert (= 2286 (solve-with p2))))
-
   )
