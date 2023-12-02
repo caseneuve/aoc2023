@@ -5,14 +5,14 @@
 
 (defn games [s]
   (->> (-> s (split #":") second (replace #"(\d+) (\w+)" "{$2 $1}") (split #"[,;]"))
-       (map read-string) (apply merge-with max) (into (sorted-map))))
+       (map read-string) (apply merge-with max) (into (sorted-map)) vals))
 
 (def p1
-  (let [rules (sorted-map "red" 12 "green" 13 "blue" 14)
-        possilble? #(every? true? (map <= (vals %) (vals rules)))]
+  (let [rules (vals (sorted-map "red" 12 "green" 13 "blue" 14))
+        possilble? #(every? true? (map <= % rules))]
     #(keep-indexed (fn [id game] (when (possilble? game) (inc id))) %)))
 
-(def p2 (fn [i] (->> i (map vals) (map #(apply * %)))))
+(def p2 (fn [i] (map #(apply * %) i)))
 
 (defn -main [day]
   (let [solve-with #(->> day file->lines (map games) % (apply +))]
