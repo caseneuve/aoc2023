@@ -23,8 +23,8 @@
       (not (digit? (gr k)))
       (recur keys (reduce #(update %1 %2 conj (parse-long (apply str digits))) acc symbols) [] #{}),
       :else
-      (let [sx (keep #(when-let [c (gr %)] (when-not (or (= \. c) (digit? c)) %)) (adjacent k))]
-        (recur keys acc (conj digits (gr k)) (into symbols sx))))))
+      (let [xf (filter #(when-let [c (gr %)] (not (or (= \. c) (digit? c)))))]
+        (recur keys acc (conj digits (gr k)) (into symbols xf (adjacent k)))))))
 
 (defn -main [day]
   (let [data (->> day file->str grid number-groups)
