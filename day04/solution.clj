@@ -11,7 +11,9 @@
   (map #(int (pow 2 (dec %))) input))
 
 (defn p2 [input]
-  (reduce (fn [xs x] (conj xs (reduce + 1 (take x xs)))) '() (reverse input)))
+  (reduce
+   (fn [s-cards matching] (conj s-cards (reduce + 1 (take matching s-cards))))
+   '() (reverse input)))
 
 (defn -main [day]
   (let [solve-with #(->> day file->lines (map (partial parse-line 10)) % (apply +))]
