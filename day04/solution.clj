@@ -13,7 +13,8 @@
 (defn p2 [input]
   (reduce
    (fn [s-cards matching] (conj s-cards (reduce + 1 (take matching s-cards))))
-   '() (reverse input)))
+   '() (reverse input)))                ;; going backwards is the key for optimization,
+                                        ;; that's a refactored version of my initial brute "forward" solution
 
 (defn -main [day]
   (let [solve-with #(->> day file->lines (map (partial parse-line 10)) % (apply +))]
