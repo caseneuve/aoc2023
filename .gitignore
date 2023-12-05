@@ -1,5 +1,6 @@
 .clj-kondo/
+.lsp.*
 .lsp/
 .token
-.lsp.*
+input.txt
 notes.org
