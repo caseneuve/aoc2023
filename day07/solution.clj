@@ -23,7 +23,7 @@
 (defn winnings [input part]
   (->> input
        (map (fn [[hand bid]] [(score hand part) (parse-long bid)]))
-       (sort-by first compare)
+       (sort-by first)
        (map-indexed (fn [i v] (* (inc i) (second v))))
        (apply +)))
 
