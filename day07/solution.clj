@@ -16,13 +16,13 @@
       (= 5     (count F))       1
       :else                     0)))
 
-(defn rank [hand part]
+(defn score [hand part]
   (let [cards (apply str (reverse (if (= part 2) "AKQT98765432J" "AKQJT98765432")))]
     (-> (map #(index-of cards %) hand) (conj (typ hand part)) vec)))
 
 (defn winnings [input part]
   (->> input
-       (map (fn [[hand bid]] [(rank hand part) (parse-long bid)]))
+       (map (fn [[hand bid]] [(score hand part) (parse-long bid)]))
        (sort-by first compare)
        (map-indexed (fn [i v] (* (inc i) (second v))))
        (apply +)))
