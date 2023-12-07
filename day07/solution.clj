@@ -4,21 +4,21 @@
 
 (defn typ [h part]
   (let [f (frequencies h)
-        jok (if (= part 2) (get f \J 0) 0)
-        frqs (sort > (vals (cond-> f (= 2 part) (dissoc \J))))]
+        J (if (= part 2) (get f \J 0) 0)
+        [c1 c2 _ :as F] (sort > (vals (cond-> f (= 2 part) (dissoc \J))))]
     (cond
-      (or (= 5 jok) (= (+ jok (first frqs)) 5))            7
-      (= 4 (+ jok (first frqs)))                           6
-      (and (= 3 (+ jok (first frqs))) (= 2 (second frqs))) 5
-      (= 3 (+ jok (first frqs)))                           4
-      (= '(2 2) (take 2 frqs))                             3
-      (= 2 (+ jok (first frqs)))                           2
-      (= 5 (count frqs))                                   1
-      :else                                                0)))
+      (= 5     (+ J (or c1 0))) 7
+      (= 4     (+ J c1))        6
+      (= [3 2] [(+ J c1) c2])   5
+      (= 3     (+ J c1))        4
+      (= [2 2] [c1 c2])         3
+      (= 2     (+ J c1))        2
+      (= 5     (count F))       1
+      :else                     0)))
 
-(defn rank [h part]
-  (let [deck (apply str (reverse (if (= part 2) "AKQT98765432J" "AKQJT98765432")))]
-    (-> (map #(index-of deck %) h) (conj (typ h part)) vec)))
+(defn rank [hand part]
+  (let [cards (apply str (reverse (if (= part 2) "AKQT98765432J" "AKQJT98765432")))]
+    (-> (map #(index-of cards %) hand) (conj (typ hand part)) vec)))
 
 (defn winnings [input part]
   (->> input
