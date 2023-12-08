@@ -8,8 +8,8 @@
     [(map {\L first \R second} i)
      (into {} (map #(hash-map (first %) (rest %))) (partition 3 m))]))
 
-(defn steps->z [[instructions network] node pred]
-  (loop [[i & r] (cycle instructions), s 0, cur node]
+(defn steps->z [[instructions network] start pred]
+  (loop [[i & r] (cycle instructions), s 0, cur start]
     (if (pred cur) s
         (recur r (inc s) (i (network cur))))))
 
@@ -42,4 +42,4 @@ ZZZ = (ZZZ, ZZZ)" parse)
 XXX = (XXX, XXX)" parse)]
     (assert (= 6 (steps->z test-input1 "AAA" #(= "ZZZ" %))))
     (assert (= 6 (steps->all-z test-input2))))
- )
+  )
