@@ -6,7 +6,7 @@
 (defn parse [s]
   (let [[i & m] (re-seq #"\w+" s)]
     [(map {\L first \R second} i)
-     (into {} (map #(hash-map (first %) (rest %))) (partition 3 m))]))
+     (into {} (comp (partition-all 3) (map (juxt first rest))) m)]))
 
 (defn steps->z [[instructions network] start pred]
   (loop [[i & r] (cycle instructions), s 0, cur start]
