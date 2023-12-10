@@ -23,9 +23,9 @@
 (defn forward [point maze pipe]
   (first
    (for [pos (get dirs (maze point)),
-         :let [pos' (mapv + point pos), ch (get maze pos' "X")]
+         :let [pos' (mapv + point pos)]
          :when (not (contains? pipe pos'))
-         :when (can-move? pos ch)]
+         :when (can-move? pos (maze pos' ""))]
      pos')))
 
 (defn discover-pipe [start grid]
