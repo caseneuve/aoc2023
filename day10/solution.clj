@@ -7,7 +7,7 @@
   (first
    (reduce
     (fn [[g [y x]] ch] [(assoc g [y x] (str ch)) (case ch \newline [(inc y) 0] [y (inc x)])])
-    [(sorted-map) [0 0]] input)))
+    [{} [0 0]] input)))
 
 (def dirs {"S" [[-1 0] [1 0] [0 -1] [0 1]]
            "|" [[-1 0] [1 0]]
@@ -35,14 +35,14 @@
 
 ;; pretty useful to see how the pipe actually looks like (gaps!)
 (defn show [grid pipe & [inside]]
-  (println
-   (apply str
-    (for [[pos ch] grid]
-      (cond
-        (contains? pipe pos)
-        ({"S" "S", "-" "━", "|" "┃", "L" "┗", "F" "┏", "J" "┛", "7" "┓"} ch)
-        (contains? inside pos) "O"
-        :else (case ch "\n" ch "."))))))
+  (let [gr (into (sorted-map) grid)
+        sx (for [[pos ch] gr]
+             (cond
+               (contains? pipe pos)
+               ({"S" "S", "-" "━", "|" "┃", "L" "┗", "F" "┏", "J" "┛", "7" "┓"} ch)
+               (contains? inside pos) "O"
+               :else (case ch "\n" ch ".")))]
+    (println (apply str sx))))
 
 ;; using a borrowed odd-even algo, which assumes an element is inside the loop
 ;; if there's an odd number of Z-turnings or horizontal veins above the point
