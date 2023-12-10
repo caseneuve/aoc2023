@@ -50,6 +50,7 @@
 ;;  ┃    ┃    (x)
 ;;  ┛    ┗
 ;; (x)  (x)
+;; also: this requires updating "S" to the actual pipe shape in the grid (hence `assoc` in part2)
 (defn inside? [[y x :as pos] pipe grid]
   (when-not (contains? pipe pos)
     (let [marks (for [y' (range y)
