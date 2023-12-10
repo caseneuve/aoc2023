@@ -18,7 +18,7 @@
            "L" [[-1 0] [0 1]]})
 
 (defn can-move? [point ch]
-  (includes? ({[0 -1] "-LF" [0 1]  "-J7" [1 0]  "|LJ" [-1 0] "|7F"} point) ch))
+  (includes? ({[0 -1] "-LF" [0 1] "-J7" [1 0] "|LJ" [-1 0] "|7F"} point) ch))
 
 (defn forward [point maze pipe]
   (first
@@ -64,8 +64,7 @@
   (let [field (->> day file->str grid)
         start ((map-invert field) "S")
         pipe (discover-pipe start field)]
-    {:part1 (do ;; (show field pipe)
-                (quot (count pipe) 2))
+    {:part1 (quot (count pipe) 2)
      :part2
      (let [inside (filter #(inside? % pipe (assoc field start "|")) (keys field))]
        (show field pipe (set inside))
