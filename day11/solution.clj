@@ -1,6 +1,6 @@
 (ns day11.solution
   (:require [tools :refer [file->str]]
-            [clojure.string :refer [split-lines ]]
+            [clojure.string :refer [split-lines]]
             [clojure.math.combinatorics :as combo]))
 
 (defn shifts [input exp]
