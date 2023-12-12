@@ -1,5 +1,6 @@
 (ns day%02d.solution
-  (:require [tools :refer [file->lines]]))
+  (:require [tools :refer [file->lines]]
+            [clojure.string :refer [split-lines split join]]))
 
 (defn -main [day]
   (let [input (file->lines day)]
@@ -10,10 +11,10 @@
   (let [test-input "
 
 "
-        input (constantly test-input)
+        input (->> test-input)
         ]
-    {:part1 nil
-     :part2 nil
-     }
+    (->> input
+
+         )
     )
   )
