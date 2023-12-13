@@ -2,9 +2,17 @@
   (:require [clojure.string :refer [split-lines]]
             [clojure.test :refer [deftest testing is run-tests]]))
 
-(defn file->str [dir] (slurp (str dir "/" "input.txt")))
-(defn file->lines [dir] (split-lines (file->str dir)))
-(defn str->ints [s] (->> s (re-seq #"-*\d+") (map parse-long)))
+(defn file->str [dir]
+  (slurp (str dir "/" "input.txt")))
+
+(defn file->lines [dir]
+  (split-lines (file->str dir)))
+
+(defn str->ints [s]
+  (->> s (re-seq #"-*\d+") (map parse-long)))
+
+(defn transform [coll]
+  (apply mapv vector coll))
 
 
 (comment
@@ -16,5 +24,9 @@
     (testing "returns empty list when no ints found"
       (is (= () (str->ints "no ints")))))
 
-  (assert (->> (run-tests 'tools) :fail zero?))
+  (deftest transform-test
+    (testing "transforms rows into cols in matrix"
+      (is (= (transform ["ab" "cd" "ef"]) ["ace" "dbdf"]))))
+
+    (run-tests 'tools)
   )
