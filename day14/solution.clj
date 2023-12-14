@@ -17,7 +17,7 @@
   (let [xf (map #(->> % reverse (map-indexed (fn [i ch] (if (= ch \O) (inc i) 0))) (reduce +)))]
     (transduce xf + platform)))
 
-(defn spin-cycle [platform]
+(defn cycle-around [platform]
   (->> platform
        (map tilt-nw) transpose (map tilt-nw) transpose
        (map tilt-se) transpose (map tilt-se) transpose))
@@ -29,7 +29,7 @@
 ;; - then there's a 26 element cycle that repeats forever
 (defn -main [day]
   (let [input (->> day file->lines transpose)
-        spinned (->> input (iterate spin-cycle) (drop 153) (map get-load))]
+        spinned (->> input (iterate cycle-around) (drop 153) (map get-load))]
     {:part1 (get-load (map tilt-nw input))
      :part2 (nth spinned (mod (- 1000000000 153) 26))}))
 
@@ -47,7 +47,7 @@ O.#..O.#.#
 #OO..#....
 "
         input (->> test-input split-lines transpose)
-        spinned (map get-load (iterate spin-cycle input))]
+        spinned (map get-load (iterate cycle-around input))]
     (assert (= 136 (get-load (map tilt-nw input))))
     ;; In the given example, cycles are 28 long, the first one being irregular
     (assert (=  64 (nth spinned (mod 1000000000 28)))))
