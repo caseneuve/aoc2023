@@ -1,5 +1,5 @@
 (ns day13.solution
-  (:require [tools :refer [file->str transform]]
+  (:require [tools :refer [file->str transpose]]
             [clojure.string :refer [split-lines split]]))
 
 (defn scan-line [line]
@@ -8,13 +8,13 @@
 
 (defn reflection [part]
   (fn [block]
-    (->> block (map scan-line) transform
+    (->> block (map scan-line) transpose
          (keep-indexed (fn [i xs] (when (= (reduce + xs) (dec part)) (inc i))))
          first)))
 
 (defn summerize [blocks f]
   (+ (transduce (keep f) + blocks)
-     (* 100 (transduce (comp (map transform) (keep f)) + blocks))))
+     (* 100 (transduce (comp (map transpose) (keep f)) + blocks))))
 
 (defn -main [day]
   (let [input (->> (split (file->str day) #"\n\n") (map split-lines))]

@@ -11,22 +11,23 @@
 (defn str->ints [s]
   (->> s (re-seq #"-*\d+") (map parse-long)))
 
-(defn transform [coll]
+(defn transpose [coll]
   (apply mapv vector coll))
 
 
 (comment
-  (deftest str->ints-test
-    (testing "transforms string into list of ints"
-      (is (= '(1 3 2 4) (str->ints "1 asd 3 (QWER 2: 4)."))))
-    (testing "is negative numbers aware"
-      (is (= '(-1 3 -2 4) (str->ints "-1 3 -2 4"))))
-    (testing "returns empty list when no ints found"
-      (is (= () (str->ints "no ints")))))
+  (do
+    (deftest str->ints-test
+      (testing "transforms string into list of ints"
+        (is (= '(1 3 2 4) (str->ints "1 asd 3 (QWER 2: 4)."))))
+      (testing "is negative numbers aware"
+        (is (= '(-1 3 -2 4) (str->ints "-1 3 -2 4"))))
+      (testing "returns empty list when no ints found"
+        (is (= () (str->ints "no ints")))))
 
-  (deftest transform-test
-    (testing "transforms rows into cols in matrix"
-      (is (= (transform ["ab" "cd" "ef"]) ["ace" "dbdf"]))))
+    (deftest transform-test
+      (testing "transforms rows into cols in matrix"
+        (is (= (transpose ["ab" "cd" "ef"]) [[\a \c \e] [\b \d \f]]))))
 
-    (run-tests 'tools)
+    (run-tests 'tools))
   )
