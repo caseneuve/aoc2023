@@ -25,7 +25,7 @@
 ;; Heurestics for p. 2:
 ;; After some time cycles repeat, it's only matter of getting the frequency
 ;; I solved it with printing and pencil:
-;; - first 153 tilts are not forming any cycle,
+;; - first 153 full tilts (N+W+S+E) are not forming any cycle,
 ;; - then there's a 26 element cycle that repeats forever
 (defn -main [day]
   (let [input (->> day file->lines transpose)
