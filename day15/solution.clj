@@ -27,7 +27,7 @@
 
   (defn dissoc* [mx a]
     (let [i (.indexOf (mapv first mx) a)]
-      (if (< i 0) mx (into [] cat [(take i mx) (drop (inc i) mx)]))))
+      (if (< i 0) mx (into [] cat [(subvec mx 0 i) (subvec mx (inc i))]))))
   )
 
 (defn focusing-powers [lenses]
