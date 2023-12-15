@@ -11,6 +11,25 @@
    (zipmap (range 256) (repeat (array-map)))
    (map #(re-seq #"\w+" %) input)))
 
+(comment
+  ;; caveats for using `array-map`:
+  (class (reduce #(assoc %1 %2 %2) (array-map) (range 8))) ;; => clojure.lang.PersistentArrayMap
+  (class (reduce #(assoc %1 %2 %2) (array-map) (range 9))) ;; => clojure.lang.PersistentHashMap
+
+  ;; as my input never creates maps larger than 6 keys at a time, it works!
+  ;; coult be replaced with `ordered-map` from `flatland.ordered.map`
+  ;; or we could implement alternative `assoc*` and `dissoc*` funcs
+  ;; and operate on vectors instead of array-maps and update condition in `focusing-powers`:
+
+  (defn assoc* [mx a b]
+    (let [i (.indexOf (mapv first mx) a)]
+      (if (< i 0) (conj mx [a b]) (assoc mx i [a b]))))
+
+  (defn dissoc* [mx a]
+    (let [i (.indexOf (mapv first mx) a)]
+      (if (< i 0) mx (into [] cat [(take i mx) (drop (inc i) mx)]))))
+  )
+
 (defn focusing-powers [lenses]
   (keep
    (fn [[box slots]]
