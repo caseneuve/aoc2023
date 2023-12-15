@@ -14,8 +14,8 @@
 (def tilt-se (partial tilt reverse))
 
 (defn get-load [platform]
-  (let [xf (map #(->> % reverse (map-indexed (fn [i ch] (if (= ch \O) (inc i) 0))) (reduce +)))]
-    (transduce xf + platform)))
+  (let [loads (map #(->> % reverse (map-indexed (fn [i ch] (if (= ch \O) (inc i) 0))) (reduce +)))]
+    (transduce loads + platform)))
 
 (defn cycle-around [platform]
   (->> platform
