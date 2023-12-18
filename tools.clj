@@ -14,6 +14,7 @@
 (defn transpose [coll]
   (apply mapv vector coll))
 
+(defn manhattan [a b] (->> [a b] (apply map (comp abs -)) (apply +)))
 
 (comment
   (do
