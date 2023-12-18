@@ -27,9 +27,9 @@
     (inc (+ shoelace (/ circum 2)))))
 
 (defn -main [day]
-  (let [solve-with #(->> day file->lines (map parse) % edges lava-vol)]
-    {:part1 (solve-with #(map :1 %))
-     :part2 (solve-with #(map :2 %))}))
+  (let [solve-for #(->> day file->lines (map parse) (map %) edges lava-vol)]
+    {:part1 (solve-for :1)
+     :part2 (solve-for :2)}))
 
 
 (comment
@@ -48,7 +48,7 @@ U 3 (#a77fa3)
 L 2 (#015232)
 U 2 (#7a21e3)
 "
-        solve-with #(->> test-input split-lines (map parse) % edges lava-vol)]
-    (assert (= 62 (solve-with (partial map :1))))
-    (assert (= 952408144115 (solve-with (partial map :2)))))
+        solve-for #(->> test-input split-lines (map parse) (map %) edges lava-vol)]
+    (assert (=           62 (solve-for :1)))
+    (assert (= 952408144115 (solve-for :2))))
   )
