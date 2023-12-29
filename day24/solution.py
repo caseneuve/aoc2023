@@ -3,7 +3,7 @@ import sympy
 
 
 def parse(lines):
-    return [list(map(int, re.findall(r"-?\d+", l))) for l in lines]
+    return [map(int, re.findall(r"-?\d+", l)) for l in lines]
 
 
 def solve2(input):
@@ -22,7 +22,7 @@ def solve2(input):
 if __name__ == "__main__":
     with open("input.txt") as f:
         input = parse(f.readlines())
-    print(solve2(input))
+    print(f"part2: {solve2(input)}")
 
 
 def test_solve2():
