@@ -10,7 +10,7 @@ solution with =priority-map=. Instead of adding to the queue states in form of
 I paid with a huge headache for my carefree naivety, as obviously there were
 multiple keys with different heat losses, and by overwriting those with lesser
 cost, by those with higher, I couldn't get the right answer.  I misdiagnosed the
-issue, and spent too much time in trying to implement some additional heuristic
+issue, and spent too much time on trying to implement some additional heuristic
 function to get the cost of next moves, which turned out to be a blind alley.
 Only changing the =seen= set into another =map= keeping the best heat loss for a
 given key, allowed me to get a proper answer.
