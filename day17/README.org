@@ -2,18 +2,18 @@
 
 It was obvious that solution for Day 17 required something else than =BFS=, but
 =Dijkstra= / =A*= was my "overdue homework" in Clojure.  As I couldn't find any
-priority queue implemented in Clojure, is generally used instead, I tried to
-re-implement a Python [[https://docs.python.org/3/library/heapq.html][heapq]] solution with =priority-map=. Instead of adding to the
-queue states in form of =[heat_loss pos dir moves]=, I was adding key-value pairs
-of =[pos dir moves]= to =heat_loss=.
+priority queue implemented in Clojure, I tried to re-implement a Python [[https://docs.python.org/3/library/heapq.html][heapq]]
+solution with =priority-map=. Instead of adding to the queue states in form of
+=[heat_loss pos dir moves]=, I was adding key-value pairs of =[pos dir moves]= to
+=heat_loss=.
 
 I paid with a huge headache for my carefree naivety, as obviously there were
-multiple keys with different heat losses, but I was overwriting those with
-lesser cost, by those with higher, and couldn't get the right answer.  I spent
-too much time in trying to implement some heuristic function to get the cost of
-next moves, which was only a blind alley.  Only changing the =seen= set into
-another =map= which also kept the best heat loss for a given key, allowed me to
-get a proper answer.
+multiple keys with different heat losses, and by overwriting those with lesser
+cost, by those with higher, I couldn't get the right answer.  I misdiagnosed the
+issue, and spent too much time in trying to implement some additional heuristic
+function to get the cost of next moves, which turned out to be a blind alley.
+Only changing the =seen= set into another =map= keeping the best heat loss for a
+given key, allowed me to get a proper answer.
 
 Still, not an optimal solution (it's quite slow!) -- probably refactoring with
 different next moves discovery approach (e.g. getting all possible moves in
